@@ -12,7 +12,7 @@ const CONFIG = {
   // Вставь прямую ссылку на neverdie.exe (например, GitHub Releases).
   // Кнопка «Скачать» активна только после входа.
   download: {
-    url: "https://github.com/oleg123456789123456-cloud/NeverdieClient/releases/download/1.1/neverdie.exe",
+    url: "https://github.com/oleg123456789123456-cloud/NeverdieClient/releases/download/1.2/neverdie.exe",
     fileName: "neverdie.exe"
   },
   clientTagline: {
