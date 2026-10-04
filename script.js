@@ -219,9 +219,10 @@ function setLanguage(lang) {
   if (footerTagline) footerTagline.textContent = CONFIG.clientTagline[lang] ?? CONFIG.clientTagline.ru;
   if (footerCopy)    footerCopy.textContent    = t.footerCopy;
 
-  // Auth modal + nav auth button
+  // Auth modal + nav auth button + profile
   refreshAuthTexts();
   refreshAuthUI();
+  refreshProfileTexts();
 
   // Video section placeholder
   const vpt = document.getElementById('videoPlaceholderText');
@@ -463,7 +464,8 @@ const MODAL_IDS = {
   privacy: 'modalPrivacy',
   terms:   'modalTerms',
   rules:   'modalRules',
-  auth:    'modalAuth'
+  auth:    'modalAuth',
+  profile: 'modalProfile'
 };
 
 const LEGAL_BODY_IDS = {
@@ -552,6 +554,23 @@ const AUTH_USERS_KEY   = 'nd_users';
 const AUTH_SESSION_KEY = 'nd_session';
 const NICK_RE = /^[A-Za-z0-9_]{3,16}$/;
 
+function nextUserId() {
+  let s = 0;
+  try { s = parseInt(localStorage.getItem('nd_seq') || '0', 10) || 0; } catch (e) {}
+  s += 1;
+  try { localStorage.setItem('nd_seq', String(s)); } catch (e) {}
+  return s;
+}
+
+function ensureUserId(users, key) {
+  const entry = users[key];
+  if (entry && !entry.id) {
+    entry.id = nextUserId();
+    saveUsers(users);
+  }
+  return entry;
+}
+
 function loadUsers() {
   try { return JSON.parse(localStorage.getItem(AUTH_USERS_KEY)) || {}; }
   catch (e) { return {}; }
@@ -629,8 +648,62 @@ function refreshAuthUI() {
   const session = getSession();
   const navBtn = document.getElementById('navAuthBtn');
   const mobLink = document.getElementById('mobAuthLink');
+  const navProfile = document.getElementById('navProfileBtn');
+  const mobProfile = document.getElementById('mobProfileLink');
   if (navBtn)  navBtn.textContent  = session || t.navLogin;
   if (mobLink) mobLink.textContent = session || t.navLogin;
+  if (navProfile) {
+    navProfile.style.display = session ? '' : 'none';
+    navProfile.textContent = t.profile;
+  }
+  if (mobProfile) {
+    mobProfile.style.display = session ? '' : 'none';
+    mobProfile.textContent = t.profile;
+  }
+}
+
+function openProfile() {
+  const t = CONFIG.i18n[currentLang];
+  const session = getSession();
+  if (!session) { openAuth(); return; }
+  const entry = ensureUserId(loadUsers(), session.toLowerCase()) || { nick: session };
+  const av = document.getElementById('profileAvatar');
+  const nk = document.getElementById('profileNick');
+  const pid = document.getElementById('profileId');
+  const since = document.getElementById('profileSince');
+  const ver = document.getElementById('profileVersion');
+  if (av)  av.textContent = (entry.nick || '?').charAt(0).toUpperCase();
+  if (nk)  nk.textContent = entry.nick || session;
+  if (pid) pid.textContent = '#' + (entry.id || '—');
+  if (since) {
+    try {
+      since.textContent = entry.createdAt
+        ? new Date(entry.createdAt).toLocaleDateString(currentLang)
+        : '—';
+    } catch (e) { since.textContent = '—'; }
+  }
+  if (ver) ver.textContent = 'v' + ((CONFIG.download && CONFIG.download.version) || '?');
+  refreshProfileTexts();
+  openModal('profile');
+}
+
+function refreshProfileTexts() {
+  const t = CONFIG.i18n[currentLang];
+  const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  set('profileTitle', t.profile);
+  set('profileIdLabel', t.profileId);
+  set('profileSinceLabel', t.profileSince);
+  set('profileVersionLabel', t.profileVersion);
+  set('profileStatus', t.profileActive);
+  set('profileDownloadBtn', t.btnDownload);
+  set('profileLogoutBtn', t.logoutBtn);
+}
+
+function profileLogout() {
+  closeModal('profile');
+  setSession(null);
+  refreshAuthUI();
+  showToast(CONFIG.i18n[currentLang].bye, 'success');
 }
 
 function navAuthClick() {
@@ -669,7 +742,7 @@ async function submitAuth() {
     if (subEl) subEl.disabled = true;
     try {
       const salt = randomSalt();
-      users[nick.toLowerCase()] = { nick, salt, hash: await hashPassword(salt, password), createdAt: Date.now() };
+      users[nick.toLowerCase()] = { nick, salt, hash: await hashPassword(salt, password), createdAt: Date.now(), id: nextUserId() };
       saveUsers(users);
       setSession(nick);
       closeModal('auth');
@@ -681,7 +754,7 @@ async function submitAuth() {
     return;
   }
 
-  const entry = users[nick.toLowerCase()];
+  const entry = ensureUserId(users, nick.toLowerCase());
   if (subEl) subEl.disabled = true;
   try {
     const ok = entry && entry.salt && (await hashPassword(entry.salt, password)) === entry.hash;

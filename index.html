@@ -51,6 +51,7 @@
       <div class="lang-dropdown" id="langDropdown"></div>
     </div>
 
+    <button class="nav-buy nav-profile-hidden" id="navProfileBtn" onclick="openProfile()">Профиль</button>
     <button class="nav-buy" id="navAuthBtn" onclick="navAuthClick()">Войти</button>
 
     <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Меню">
@@ -68,6 +69,7 @@
   <a href="#pricing"  onclick="closeMobileMenu()" data-mob-i18n="nav3">Скачать</a>
   <a href="#support"  onclick="closeMobileMenu()" data-mob-i18n="nav4">Поддержка</a>
   <a onclick="closeMobileMenu();openAuth()" id="mobAuthLink">Войти</a>
+  <a onclick="closeMobileMenu();openProfile()" id="mobProfileLink" style="display:none">Профиль</a>
 </div>
 
 <!-- ════════════════════════════════════════
@@ -448,6 +450,36 @@
       <input class="auth-input" id="authPassword" type="password" placeholder="Пароль" autocomplete="current-password" />
       <input class="auth-input" id="authRepeat" type="password" placeholder="Повторите пароль" autocomplete="new-password" style="display:none" />
       <button class="btn btn-primary" id="authSubmit" style="width:100%" onclick="submitAuth()">Войти</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── ПРОФИЛЬ ── -->
+<div class="modal-overlay" id="modalProfile" onclick="closeModalOutside(event,'modalProfile')">
+  <div class="modal auth-modal">
+    <div class="modal-header">
+      <h3 id="profileTitle">Профиль</h3>
+      <button class="modal-close" onclick="closeModal('profile')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="profile-head">
+        <div class="profile-avatar" id="profileAvatar">N</div>
+        <div>
+          <div class="profile-nick" id="profileNick">—</div>
+          <div class="profile-status"><span class="status-dot"></span><span id="profileStatus">Активен</span></div>
+        </div>
+      </div>
+      <div class="profile-rows">
+        <div class="profile-row"><span id="profileIdLabel">Твой ID</span><b id="profileId">—</b></div>
+        <div class="profile-row"><span id="profileSinceLabel">С нами с</span><b id="profileSince">—</b></div>
+        <div class="profile-row"><span id="profileVersionLabel">Версия лаунчера</span><b id="profileVersion">—</b></div>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-bottom:10px" id="profileDownloadBtn" onclick="closeModal('profile');handleDownload()">Скачать</button>
+      <button class="btn btn-outline" style="width:100%" id="profileLogoutBtn" onclick="profileLogout()">Выйти</button>
     </div>
   </div>
 </div>

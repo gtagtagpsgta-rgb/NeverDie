@@ -13,7 +13,8 @@ const CONFIG = {
   // Кнопка «Скачать» активна только после входа.
   download: {
     url: "https://github.com/oleg123456789123456-cloud/NeverdieClient/releases/download/1.4/neverdie.exe",
-    fileName: "neverdie.exe"
+    fileName: "neverdie.exe",
+    version: "1.4"
   },
   clientTagline: {
     ru: "Превосходство. Скорость. Победа.",
@@ -210,7 +211,13 @@ const CONFIG = {
       bye:                  "Вы вышли из аккаунта",
       needLogin:            "Войдите, чтобы скачать лаунчер",
       downloading:          "Загрузка началась",
-      noDownloadUrl:        "Ссылка на скачивание скоро появится"
+      noDownloadUrl:        "Ссылка на скачивание скоро появится",
+      profile:              "Профиль",
+      profileId:            "Твой ID",
+      profileSince:         "С нами с",
+      profileVersion:       "Версия лаунчера",
+      profileActive:        "Активен",
+      logoutBtn:            "Выйти"
     },
     en: {
       navBuy:               "Download",
@@ -260,7 +267,13 @@ const CONFIG = {
       bye:                  "You have logged out",
       needLogin:            "Log in to download the launcher",
       downloading:          "Download started",
-      noDownloadUrl:        "Download link coming soon"
+      noDownloadUrl:        "Download link coming soon",
+      profile:              "Profile",
+      profileId:            "Your ID",
+      profileSince:         "With us since",
+      profileVersion:       "Launcher version",
+      profileActive:        "Active",
+      logoutBtn:            "Log out"
     },
     uk: {
       navBuy:               "Завантажити",
@@ -310,7 +323,13 @@ const CONFIG = {
       bye:                  "Ви вийшли з акаунта",
       needLogin:            "Увійдіть, щоб завантажити лаунчер",
       downloading:          "Завантаження розпочато",
-      noDownloadUrl:        "Посилання на завантаження скоро з'явиться"
+      noDownloadUrl:        "Посилання на завантаження скоро з'явиться",
+      profile:              "Профіль",
+      profileId:            "Твій ID",
+      profileSince:         "З нами з",
+      profileVersion:       "Версія лаунчера",
+      profileActive:        "Активний",
+      logoutBtn:            "Вийти"
     },
     pl: {
       navBuy:               "Pobierz",
@@ -360,7 +379,13 @@ const CONFIG = {
       bye:                  "Wylogowano",
       needLogin:            "Zaloguj się, aby pobrać launcher",
       downloading:          "Pobieranie rozpoczęte",
-      noDownloadUrl:        "Link do pobrania wkrótce"
+      noDownloadUrl:        "Link do pobrania wkrótce",
+      profile:              "Profil",
+      profileId:            "Twoje ID",
+      profileSince:         "Z nami od",
+      profileVersion:       "Wersja launchera",
+      profileActive:        "Aktywny",
+      logoutBtn:            "Wyloguj"
     },
     tr: {
       navBuy:               "İndir",
@@ -410,7 +435,13 @@ const CONFIG = {
       bye:                  "Çıkış yapıldı",
       needLogin:            "Başlatıcıyı indirmek için giriş yap",
       downloading:          "İndirme başladı",
-      noDownloadUrl:        "İndirme bağlantısı yakında"
+      noDownloadUrl:        "İndirme bağlantısı yakında",
+      profile:              "Profil",
+      profileId:            "ID'n",
+      profileSince:         "Aramızda",
+      profileVersion:       "Başlatıcı sürümü",
+      profileActive:        "Aktif",
+      logoutBtn:            "Çıkış"
     }
   },
 
