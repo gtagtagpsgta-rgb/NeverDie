@@ -61,7 +61,8 @@ const CONFIG = {
 
   // ─── КОНТАКТЫ ────────────────────────────────────────────
   contact: {
-    telegram: "https://t.me/neverdieCheat"
+    telegram: "https://t.me/neverdieCheat",
+    supportBot: "https://t.me/neverdiesupport_bot"
   },
 
   // ─── ВИДЕО ───────────────────────────────────────────────

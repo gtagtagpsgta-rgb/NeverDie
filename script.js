@@ -432,9 +432,10 @@ function extractYouTubeId(url) {
    ════════════════════════════════════════ */
 function populateContact() {
   const telegram = CONFIG.contact && CONFIG.contact.telegram;
+  const supportBot = (CONFIG.contact && CONFIG.contact.supportBot) || telegram;
 
   const tgCard = document.getElementById('supportTelegramCard');
-  if (tgCard && telegram) tgCard.href = telegram;
+  if (tgCard && supportBot) tgCard.href = supportBot;
 
   const footerTelegram = document.getElementById('footerTelegram');
   if (footerTelegram && telegram) footerTelegram.href = telegram;
