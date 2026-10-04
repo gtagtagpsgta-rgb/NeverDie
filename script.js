@@ -437,6 +437,9 @@ function populateContact() {
   const tgCard = document.getElementById('supportTelegramCard');
   if (tgCard && supportBot) tgCard.href = supportBot;
 
+  const channelCard = document.getElementById('supportChannelCard');
+  if (channelCard && telegram) channelCard.href = telegram;
+
   const footerTelegram = document.getElementById('footerTelegram');
   if (footerTelegram && telegram) footerTelegram.href = telegram;
 }
