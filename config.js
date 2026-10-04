@@ -1,4 +1,4 @@
-// ============================================================
+﻿// ============================================================
 //                 КОНФИГУРАЦИЯ NEVERDIE CLIENT
 //          Все настройки — в одном месте. Просто меняй.
 // ============================================================
@@ -51,13 +51,13 @@ const CONFIG = {
   // ─── НАВИГАЦИЯ ───────────────────────────────────────────
   nav: {
     links: {
-      ru: ["Главная", "Функции", "Видеообзор", "Скачать", "Поддержка"],
-      en: ["Home",    "Features", "Video",      "Download","Support"],
-      uk: ["Головна", "Функції",  "Відео",      "Завантажити","Підтримка"],
-      pl: ["Główna",  "Funkcje",  "Wideo",      "Pobierz",  "Wsparcie"],
-      tr: ["Ana",     "Özellikler","Video",     "İndir",    "Destek"]
+      ru: ["Главная", "Функции", "Видеообзор", "Скачать", "Поддержка", "FAQ"],
+      en: ["Home",    "Features", "Video",      "Download","Support", "FAQ"],
+      uk: ["Головна", "Функції",  "Відео",      "Завантажити","Підтримка", "FAQ"],
+      pl: ["Główna",  "Funkcje",  "Wideo",      "Pobierz",  "Wsparcie", "FAQ"],
+      tr: ["Ana",     "Özellikler","Video",     "İndir",    "Destek", "SSS"]
     },
-    anchors: ["#hero", "#features", "#video", "#pricing", "#support"]
+    anchors: ["#hero", "#features", "#video", "#pricing", "#support", "#faq"]
   },
 
   // ─── КОНТАКТЫ ────────────────────────────────────────────
@@ -96,6 +96,50 @@ const CONFIG = {
       alt: "Neverdie Client — скриншот 3"
     }
   ],
+
+  // ─── FAQ ─────────────────────────────────────────────────
+  faq: {
+    ru: [
+      { q: "Клиент бесплатный?", a: "Да, полностью. Все функции, обновления и поддержка — бесплатно и навсегда." },
+      { q: "Меня забанят?", a: "Клиент используют на свой риск: ни один чит не даёт 100% защиты. Мы постоянно обновляем обходы, но гарантии от бана нет." },
+      { q: "Лаунчер не запускается. Что делать?", a: "Нужен Windows 10/11 x64. Запусти neverdie.exe от имени администратора. Если ругается антивирус — добавь файл в исключения (это ложное срабатывание, такое бывает со всеми клиентами)." },
+      { q: "Как обновить клиент?", a: "Скачай новый лаунчер с этого сайта (раздел «Скачать», нужна регистрация). Старый файл можно просто заменить." },
+      { q: "Не качается exe. Почему?", a: "Сначала войди или зарегистрируйся — без входа кнопка не сработает. Также проверь, что антивирус или браузер не блокируют загрузку." },
+      { q: "Куда писать, если что-то сломалось?", a: "В наш Telegram-бот поддержки — кнопка в разделе «Поддержка». Опиши проблему и приложи скрин, если есть." }
+    ],
+    en: [
+      { q: "Is the client free?", a: "Yes, completely. All features, updates and support — free forever." },
+      { q: "Will I get banned?", a: "You use the client at your own risk: no cheat gives 100% protection. We keep updating bypasses, but there is no ban guarantee." },
+      { q: "The launcher won't start. What to do?", a: "You need Windows 10/11 x64. Run neverdie.exe as administrator. If your antivirus complains — add the file to exclusions (false positive, common for all clients)." },
+      { q: "How do I update?", a: "Download the new launcher from this site (Download section, login required). You can simply replace the old file." },
+      { q: "The exe won't download. Why?", a: "Log in or sign up first — the button won't work otherwise. Also check that antivirus or browser isn't blocking the download." },
+      { q: "Where do I report a bug?", a: "Write to our Telegram support bot — button in the Support section. Describe the issue and attach a screenshot if you can." }
+    ],
+    uk: [
+      { q: "Клієнт безкоштовний?", a: "Так, повністю. Всі функції, оновлення та підтримка — безкоштовно і назавжди." },
+      { q: "Мене забанять?", a: "Клієнт використовуєте на свій ризик: жоден чит не дає 100% захисту. Ми постійно оновлюємо обходи, але гарантії від бану немає." },
+      { q: "Лаунчер не запускається. Що робити?", a: "Потрібен Windows 10/11 x64. Запусти neverdie.exe від імені адміністратора. Якщо свариться антивірус — додай файл у винятки (хибне спрацювання, так буває з усіма клієнтами)." },
+      { q: "Як оновити клієнт?", a: "Завантаж новий лаунчер із цього сайту (розділ «Завантажити», потрібен вхід). Старий файл можна просто замінити." },
+      { q: "Не качається exe. Чому?", a: "Спочатку увійди або зареєструйся — без входу кнопка не спрацює. Також перевір, що антивірус або браузер не блокують завантаження." },
+      { q: "Куди писати, якщо щось зламалось?", a: "У наш Telegram-бот підтримки — кнопка в розділі «Підтримка». Опиши проблему і додай скрин, якщо є." }
+    ],
+    pl: [
+      { q: "Czy klient jest darmowy?", a: "Tak, w pełni. Wszystkie funkcje, aktualizacje i wsparcie — darmowe na zawsze." },
+      { q: "Czy dostanę bana?", a: "Klienta używasz na własne ryzyko: żaden cheat nie daje 100% ochrony. Stale aktualizujemy obejścia, ale gwarancji brak." },
+      { q: "Launcher się nie uruchamia. Co robić?", a: "Potrzebny Windows 10/11 x64. Uruchom neverdie.exe jako administrator. Jeśli antywirus protestuje — dodaj plik do wyjątków (fałszywy alarm, typowy dla klientów)." },
+      { q: "Jak zaktualizować klienta?", a: "Pobierz nowy launcher z tej strony (sekcja Pobierz, wymagane logowanie). Stary plik po prostu zastąp." },
+      { q: "Exe się nie pobiera. Dlaczego?", a: "Najpierw zaloguj się lub zarejestruj — bez tego przycisk nie zadziała. Sprawdź też, czy antywirus lub przeglądarka nie blokują pobierania." },
+      { q: "Gdzie zgłosić błąd?", a: "Napisz do naszego bota wsparcia na Telegramie — przycisk w sekcji Wsparcie. Opisz problem i dołącz zrzut ekranu." }
+    ],
+    tr: [
+      { q: "İstemci ücretsiz mi?", a: "Evet, tamamen. Tüm özellikler, güncellemeler ve destek — sonsuza dek ücretsiz." },
+      { q: "Ban yer miyim?", a: "İstemciyi riski sana ait olmak üzere kullanırsın: hiçbir hile %100 koruma vermez. Bypassları sürekli güncelliyoruz ama ban garantisi yok." },
+      { q: "Başlatıcı açılmıyor. Ne yapmalıyım?", a: "Windows 10/11 x64 gerekli. neverdie.exe'yi yönetici olarak çalıştır. Antivirüs uyarırsa dosyayı istisnalara ekle (tüm istemcilerde olan yanlış alarm)." },
+      { q: "İstemci nasıl güncellenir?", a: "Bu siteden yeni başlatıcıyı indir (İndir bölümü, giriş gerekli). Eski dosyanın üzerine yazman yeterli." },
+      { q: "Exe inmiyor. Neden?", a: "Önce giriş yap veya kaydol — girişsiz buton çalışmaz. Ayrıca antivirüs veya tarayıcının indirmeyi engellemediğini kontrol et." },
+      { q: "Hatayı nereye bildireyim?", a: "Telegram destek botumuza yaz — Destek bölümündeki buton. Sorunu anlat, varsa ekran görüntüsü ekle." }
+    ]
+  },
 
   // ─── ФУНКЦИИ (FEATURES) ──────────────────────────────────
   features: {
@@ -171,6 +215,8 @@ const CONFIG = {
       videoSubtitle:        "Посмотрите на реальный геймплей с нашим клиентом.",
       sectionScreenshots:   "Скриншоты",
       screenshotsSubtitle:  "Несколько снимков прямо из игры с нашим клиентом.",
+      sectionFaq:           "Частые вопросы",
+      faqSubtitle:          "Ответы на то, о чём спрашивают чаще всего.",
       sectionPricing:       "Скачивание",
       pricingSubtitle:      "Клиент полностью бесплатный. Войдите и нажмите «Скачать».",
       free:                 "Бесплатно",
@@ -233,6 +279,8 @@ const CONFIG = {
       videoSubtitle:        "Watch real gameplay footage with our client.",
       sectionScreenshots:   "Screenshots",
       screenshotsSubtitle:  "A few shots straight from the game with our client.",
+      sectionFaq:           "FAQ",
+      faqSubtitle:          "Answers to the most common questions.",
       sectionPricing:       "Download",
       pricingSubtitle:      "The client is completely free. Log in and hit Download.",
       free:                 "Free",
@@ -295,6 +343,8 @@ const CONFIG = {
       videoSubtitle:        "Перегляньте реальний геймплей з нашим клієнтом.",
       sectionScreenshots:   "Скріншоти",
       screenshotsSubtitle:  "Кілька знімків прямо з гри з нашим клієнтом.",
+      sectionFaq:           "Часті питання",
+      faqSubtitle:          "Відповіді на те, про що питають найчастіше.",
       sectionPricing:       "Завантаження",
       pricingSubtitle:      "Клієнт повністю безкоштовний. Увійдіть і натисніть «Завантажити».",
       free:                 "Безкоштовно",
@@ -357,6 +407,8 @@ const CONFIG = {
       videoSubtitle:        "Obejrzyj prawdziwą rozgrywkę z naszym klientem.",
       sectionScreenshots:   "Zrzuty ekranu",
       screenshotsSubtitle:  "Kilka zdjęć prosto z gry z naszym klientem.",
+      sectionFaq:           "Częste pytania",
+      faqSubtitle:          "Odpowiedzi na najczęściej zadawane pytania.",
       sectionPricing:       "Pobieranie",
       pricingSubtitle:      "Klient jest w pełni darmowy. Zaloguj się i kliknij Pobierz.",
       free:                 "Za darmo",
@@ -419,6 +471,8 @@ const CONFIG = {
       videoSubtitle:        "Müşterimizle gerçek oynanışı izleyin.",
       sectionScreenshots:   "Ekran Görüntüleri",
       screenshotsSubtitle:  "Müşterimizle oyundan birkaç görüntü.",
+      sectionFaq:           "SSS",
+      faqSubtitle:          "En sık sorulan soruların yanıtları.",
       sectionPricing:       "İndirme",
       pricingSubtitle:      "İstemci tamamen ücretsiz. Giriş yap ve İndir'e bas.",
       free:                 "Ücretsiz",

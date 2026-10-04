@@ -34,6 +34,7 @@
     <li><a href="#video"       data-i18n="nav2">Видеообзор</a></li>
     <li><a href="#pricing"     data-i18n="nav3">Скачать</a></li>
     <li><a href="#support"     data-i18n="nav4">Поддержка</a></li>
+    <li><a href="#faq"         data-i18n="nav5">FAQ</a></li>
   </ul>
 
   <!-- Правая часть: язык + кнопка купить + гамбургер -->
@@ -68,6 +69,7 @@
   <a href="#video"    onclick="closeMobileMenu()" data-mob-i18n="nav2">Видеообзор</a>
   <a href="#pricing"  onclick="closeMobileMenu()" data-mob-i18n="nav3">Скачать</a>
   <a href="#support"  onclick="closeMobileMenu()" data-mob-i18n="nav4">Поддержка</a>
+  <a href="#faq"      onclick="closeMobileMenu()" data-mob-i18n="nav5">FAQ</a>
   <a onclick="closeMobileMenu();openAuth()" id="mobAuthLink">Войти</a>
   <a onclick="location.href='profile.html'" id="mobProfileLink" style="display:none">Профиль</a>
 </div>
@@ -328,8 +330,31 @@
 <div class="divider"></div>
 
 <!-- ════════════════════════════════════════
+     FAQ
+     ════════════════════════════════════════ -->
+<section id="faq">
+  <div class="container">
+
+    <div class="section-header reveal">
+      <div class="section-eyebrow">FAQ</div>
+      <h2 class="section-title" data-i18n="sectionFaq">Частые вопросы</h2>
+      <p class="section-subtitle" data-i18n="faqSubtitle">
+        Ответы на то, о чём спрашивают чаще всего.
+      </p>
+    </div>
+
+    <div class="faq-list" id="faqList">
+      <!-- Генерируется в script.js → buildFaq() -->
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
      FOOTER
-════════════════════════════════════════ -->
+     ════════════════════════════════════════ -->
 <footer class="footer">
   <div class="footer-inner">
 
@@ -349,8 +374,9 @@
         <li><a href="#hero"     data-i18n="nav0">Главная</a></li>
         <li><a href="#features" data-i18n="nav1">Функции</a></li>
         <li><a href="#video"    data-i18n="nav2">Видеообзор</a></li>
-        <li><a href="#pricing"  data-i18n="nav3">Купить</a></li>
+        <li><a href="#pricing"  data-i18n="nav3">Скачать</a></li>
         <li><a href="#support"  data-i18n="nav4">Поддержка</a></li>
+        <li><a href="#faq"      data-i18n="nav5">FAQ</a></li>
       </ul>
     </div>
 

@@ -236,6 +236,7 @@ function setLanguage(lang) {
   // Перестроить динамические секции
   buildFeatures();
   buildPricing();
+  buildFaq();
 }
 
 /* ════════════════════════════════════════
@@ -312,8 +313,37 @@ function buildScreenshots() {
 }
 
 /* ════════════════════════════════════════
+   FAQ — аккордеон
+   ════════════════════════════════════════ */
+function buildFaq() {
+  const list = document.getElementById('faqList');
+  if (!list) return;
+  const items = CONFIG.faq[currentLang] ?? CONFIG.faq.ru;
+
+  list.innerHTML = items.map((item, i) => `
+    <div class="faq-item reveal reveal-d${(i % 4) + 1}" onclick="toggleFaq(this)">
+      <button class="faq-q">
+        <span>${escapeHtml(item.q)}</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="6,9 12,15 18,9"></polyline>
+        </svg>
+      </button>
+      <div class="faq-a"><p>${escapeHtml(item.a)}</p></div>
+    </div>
+  `).join('');
+
+  observeRevealElements();
+}
+
+function toggleFaq(el) {
+  const wasOpen = el.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(o => o.classList.remove('open'));
+  if (!wasOpen) el.classList.add('open');
+}
+
+/* ════════════════════════════════════════
    PRICING
-════════════════════════════════════════ */
+   ════════════════════════════════════════ */
 function buildPricing() {
   const grid = document.getElementById('pricingGrid');
   if (!grid) return;
