@@ -51,13 +51,13 @@ const CONFIG = {
   // ─── НАВИГАЦИЯ ───────────────────────────────────────────
   nav: {
     links: {
-      ru: ["Главная", "Функции", "Видеообзор", "Скачать", "Поддержка", "FAQ"],
-      en: ["Home",    "Features", "Video",      "Download","Support", "FAQ"],
-      uk: ["Головна", "Функції",  "Відео",      "Завантажити","Підтримка", "FAQ"],
-      pl: ["Główna",  "Funkcje",  "Wideo",      "Pobierz",  "Wsparcie", "FAQ"],
-      tr: ["Ana",     "Özellikler","Video",     "İndir",    "Destek", "SSS"]
+      ru: ["Главная", "Функции", "Скачать", "Поддержка", "FAQ"],
+      en: ["Home",    "Features", "Download","Support", "FAQ"],
+      uk: ["Головна", "Функції",  "Завантажити","Підтримка", "FAQ"],
+      pl: ["Główna",  "Funkcje",  "Pobierz",  "Wsparcie", "FAQ"],
+      tr: ["Ana",     "Özellikler","İndir",    "Destek", "SSS"]
     },
-    anchors: ["#hero", "#features", "#video", "#pricing", "#support", "#faq"]
+    anchors: ["#hero", "#features", "#pricing", "#support", "#faq"]
   },
 
   // ─── КОНТАКТЫ ────────────────────────────────────────────

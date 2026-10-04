@@ -31,10 +31,9 @@
   <ul class="nav-center" id="navCenter">
     <li><a href="#hero"        data-i18n="nav0">Главная</a></li>
     <li><a href="#features"    data-i18n="nav1">Функции</a></li>
-    <li><a href="#video"       data-i18n="nav2">Видеообзор</a></li>
-    <li><a href="#pricing"     data-i18n="nav3">Скачать</a></li>
-    <li><a href="#support"     data-i18n="nav4">Поддержка</a></li>
-    <li><a href="#faq"         data-i18n="nav5">FAQ</a></li>
+    <li><a href="#pricing"     data-i18n="nav2">Скачать</a></li>
+    <li><a href="#support"     data-i18n="nav3">Поддержка</a></li>
+    <li><a href="#faq"         data-i18n="nav4">FAQ</a></li>
   </ul>
 
   <!-- Правая часть: язык + кнопка купить + гамбургер -->
@@ -66,10 +65,9 @@
 <div class="mobile-menu" id="mobileMenu">
   <a href="#hero"     onclick="closeMobileMenu()" data-mob-i18n="nav0">Главная</a>
   <a href="#features" onclick="closeMobileMenu()" data-mob-i18n="nav1">Функции</a>
-  <a href="#video"    onclick="closeMobileMenu()" data-mob-i18n="nav2">Видеообзор</a>
-  <a href="#pricing"  onclick="closeMobileMenu()" data-mob-i18n="nav3">Скачать</a>
-  <a href="#support"  onclick="closeMobileMenu()" data-mob-i18n="nav4">Поддержка</a>
-  <a href="#faq"      onclick="closeMobileMenu()" data-mob-i18n="nav5">FAQ</a>
+  <a href="#pricing"  onclick="closeMobileMenu()" data-mob-i18n="nav2">Скачать</a>
+  <a href="#support"  onclick="closeMobileMenu()" data-mob-i18n="nav3">Поддержка</a>
+  <a href="#faq"      onclick="closeMobileMenu()" data-mob-i18n="nav4">FAQ</a>
   <a onclick="closeMobileMenu();openAuth()" id="mobAuthLink">Войти</a>
   <a onclick="location.href='profile.html'" id="mobProfileLink" style="display:none">Профиль</a>
 </div>
@@ -118,17 +116,12 @@
 
       </div>
 
-      <!-- Правая часть: видео -->
+      <!-- Правая часть: карусель скриншотов -->
       <div class="hero-right anim-right">
-        <div class="hero-video-frame" id="heroVideoFrame">
-          <div class="hero-video-placeholder" id="heroVideoPlaceholder">
-            <div class="play-icon-wrap">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </div>
-            <p id="heroVideoHint">Видео скоро появится</p>
-          </div>
+        <div class="hero-showcase" id="heroShowcase">
+          <img id="heroShot" src="screenshots/shot1.png" alt="Neverdie Client" />
+          <div class="hero-free-badge" id="heroFreeBadge">FREE</div>
+          <div class="hero-shot-dots" id="heroShotDots"></div>
         </div>
       </div>
 
@@ -170,73 +163,8 @@
 <div class="divider"></div>
 
 <!-- ════════════════════════════════════════
-     ВИДЕООБЗОР
-     Слева — заголовок и описание
-     Справа — плеер
-════════════════════════════════════════ -->
-<section id="video">
-  <div class="container">
-    <div class="video-section-container">
-
-      <!-- Левая часть: описание -->
-      <div class="reveal">
-        <div class="section-eyebrow">Видеообзор</div>
-        <h2 class="section-title" data-i18n="sectionVideo">Видеообзор</h2>
-        <p class="section-subtitle" data-i18n="videoSubtitle">
-          Посмотрите на реальный геймплей с нашим клиентом.
-        </p>
-
-        <div class="video-bullets">
-          <div class="video-bullet">
-            <div class="video-bullet-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <polyline points="20,6 9,17 4,12"/>
-              </svg>
-            </div>
-            <span class="video-bullet-text" data-i18n="videoBullet1">Реальный геймплей без монтажа</span>
-          </div>
-          <div class="video-bullet">
-            <div class="video-bullet-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <polyline points="20,6 9,17 4,12"/>
-              </svg>
-            </div>
-            <span class="video-bullet-text" data-i18n="videoBullet2">Демонстрация всех ключевых функций</span>
-          </div>
-          <div class="video-bullet">
-            <div class="video-bullet-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <polyline points="20,6 9,17 4,12"/>
-              </svg>
-            </div>
-            <span class="video-bullet-text" data-i18n="videoBullet3">Настройки интерфейса в деталях</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Правая часть: плеер -->
-      <div class="reveal reveal-d2">
-        <div class="video-embed-wrap" id="videoContainer">
-          <div class="video-embed-placeholder">
-            <div class="play-icon-wrap">
-              <svg viewBox="0 0 24 24" fill="currentColor" style="width:22px;height:22px;color:var(--primary-light);margin-left:3px;">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </div>
-            <p id="videoPlaceholderText">Видео скоро появится здесь</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ════════════════════════════════════════
      СКРИНШОТЫ
-════════════════════════════════════════ -->
+     ════════════════════════════════════════ -->
 <section id="screenshots">
   <div class="container">
 
@@ -373,10 +301,9 @@
       <ul>
         <li><a href="#hero"     data-i18n="nav0">Главная</a></li>
         <li><a href="#features" data-i18n="nav1">Функции</a></li>
-        <li><a href="#video"    data-i18n="nav2">Видеообзор</a></li>
-        <li><a href="#pricing"  data-i18n="nav3">Скачать</a></li>
-        <li><a href="#support"  data-i18n="nav4">Поддержка</a></li>
-        <li><a href="#faq"      data-i18n="nav5">FAQ</a></li>
+        <li><a href="#pricing"  data-i18n="nav2">Скачать</a></li>
+        <li><a href="#support"  data-i18n="nav3">Поддержка</a></li>
+        <li><a href="#faq"      data-i18n="nav4">FAQ</a></li>
       </ul>
     </div>
 

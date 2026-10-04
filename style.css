@@ -1712,6 +1712,61 @@ button.nav-buy {
   background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%) !important;
 }
 
+/* Hero-витрина */
+.hero-showcase {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--bg-card);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55), 0 0 50px rgba(255, 255, 255, 0.05);
+}
+
+.hero-showcase img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  transition: opacity 0.25s ease;
+}
+
+.hero-free-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 4px 12px;
+  border-radius: 99px;
+  background: #fff;
+  color: #0a0a0a;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+.hero-shot-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+}
+
+.hero-shot-dots span {
+  width: 22px;
+  height: 4px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.hero-shot-dots span.active {
+  background: #fff;
+}
+
 /* Профиль */
 .nav-profile-hidden {
   display: none;

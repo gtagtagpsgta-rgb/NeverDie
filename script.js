@@ -22,8 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupCursorGlow();
   setupSmoothLinks();
 
-  // Видео из конфига — показываем сразу без участия пользователя
-  if (CONFIG.video.url) embedVideo(CONFIG.video.url);
+  buildHeroShowcase();
 
   refreshAuthUI();
 
@@ -224,9 +223,9 @@ function setLanguage(lang) {
   refreshAuthUI();
   refreshProfileTexts();
 
-  // Video section placeholder
-  const vpt = document.getElementById('videoPlaceholderText');
-  if (vpt) vpt.textContent = CONFIG.video.placeholder[lang] ?? CONFIG.video.placeholder.ru;
+  // Hero showcase badge
+  const badge = document.getElementById('heroFreeBadge');
+  if (badge) badge.textContent = t.free;
 
   // html lang attr
   document.documentElement.lang = lang;
@@ -291,8 +290,65 @@ function buildFeatures() {
 }
 
 /* ════════════════════════════════════════
+   HERO-ВИТРИНА — автокарусель скриншотов
+   ════════════════════════════════════════ */
+let heroShotIdx = 0;
+let heroShotTimer = null;
+
+function buildHeroShowcase() {
+  const img = document.getElementById('heroShot');
+  if (!img) return;
+  const shots = CONFIG.screenshots || [];
+  if (!shots.length) return;
+
+  shots.forEach(s => { const pre = new Image(); pre.src = s.url; });
+
+  const dots = document.getElementById('heroShotDots');
+  if (dots) {
+    dots.innerHTML = shots.map((_, i) =>
+      `<span class="${i === 0 ? 'active' : ''}" onclick="heroShotGo(${i})"></span>`
+    ).join('');
+  }
+
+  const badge = document.getElementById('heroFreeBadge');
+  if (badge) badge.textContent = (CONFIG.i18n[currentLang] || {}).free ?? 'FREE';
+
+  restartHeroShotTimer();
+}
+
+function heroShotGo(i) {
+  const img = document.getElementById('heroShot');
+  const shots = CONFIG.screenshots || [];
+  if (!img || !shots.length) return;
+  heroShotIdx = ((i % shots.length) + shots.length) % shots.length;
+
+  document.querySelectorAll('#heroShotDots span').forEach((el, k) => {
+    el.classList.toggle('active', k === heroShotIdx);
+  });
+
+  img.style.opacity = '0';
+  setTimeout(() => {
+    img.src = shots[heroShotIdx].url;
+    img.alt = shots[heroShotIdx].alt || '';
+    const show = () => { img.style.opacity = '1'; };
+    if (img.complete) show();
+    else { img.onload = show; setTimeout(show, 800); }
+  }, 220);
+
+  restartHeroShotTimer();
+}
+
+function restartHeroShotTimer() {
+  if (heroShotTimer) clearInterval(heroShotTimer);
+  const shots = CONFIG.screenshots || [];
+  if (document.getElementById('heroShot') && shots.length > 1) {
+    heroShotTimer = setInterval(() => heroShotGo(heroShotIdx + 1), 4500);
+  }
+}
+
+/* ════════════════════════════════════════
    SCREENSHOTS
-════════════════════════════════════════ */
+   ════════════════════════════════════════ */
 function buildScreenshots() {
   const grid  = document.getElementById('screenshotsGrid');
   if (!grid) return;
