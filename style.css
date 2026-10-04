@@ -1784,3 +1784,140 @@ button.nav-buy {
 .profile-row b {
   color: var(--text);
 }
+
+/* Страница профиля */
+.profile-page {
+  padding: 120px 0 80px;
+  min-height: 100vh;
+}
+
+.profile-layout {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+.profile-side {
+  width: 220px;
+  flex-shrink: 0;
+}
+
+.profile-side h2 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0 0 18px;
+}
+
+.pside {
+  display: block;
+  padding: 9px 12px;
+  margin-bottom: 4px;
+  border-radius: 8px;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  border-left: 2px solid transparent;
+}
+
+.pside:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.pside.active {
+  color: var(--text);
+  font-weight: 700;
+  border-left-color: #fff;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.profile-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.crumbs {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  margin-bottom: 26px;
+  display: flex;
+  gap: 10px;
+}
+
+.pp-hello {
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  font-weight: 800;
+  color: var(--text);
+  margin: 0 0 30px;
+  letter-spacing: -0.5px;
+}
+
+.pp-hello span {
+  color: var(--success);
+}
+
+.pp-subtitle {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0 0 18px;
+}
+
+.pp-rows {
+  margin-bottom: 26px;
+}
+
+.pp-rows .profile-row {
+  padding: 13px 4px;
+  font-size: 0.9rem;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+}
+
+.pp-role {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--primary-light) !important;
+}
+
+.pp-role-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid var(--primary-light);
+  display: inline-block;
+}
+
+.pp-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pp-actions .btn {
+  width: auto;
+  padding-left: 28px;
+  padding-right: 28px;
+}
+
+.pp-guest-text {
+  color: var(--text-muted);
+  margin: 0 0 20px;
+}
+
+@media (max-width: 760px) {
+  .profile-layout {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .profile-side {
+    width: 100%;
+  }
+}

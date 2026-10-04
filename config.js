@@ -217,7 +217,13 @@ const CONFIG = {
       profileSince:         "С нами с",
       profileVersion:       "Версия лаунчера",
       profileActive:        "Активен",
-      logoutBtn:            "Выйти"
+      logoutBtn:            "Выйти",
+      account:              "Аккаунт",
+      profileInfo:          "Информация о профиле",
+      profileRole:          "Ваша роль",
+      profileUser:          "Пользователь",
+      downloadClient:       "Скачать клиент",
+      profileLoginNeeded:   "Войдите, чтобы открыть профиль"
     },
     en: {
       navBuy:               "Download",
@@ -273,7 +279,13 @@ const CONFIG = {
       profileSince:         "With us since",
       profileVersion:       "Launcher version",
       profileActive:        "Active",
-      logoutBtn:            "Log out"
+      logoutBtn:            "Log out",
+      account:              "Account",
+      profileInfo:          "Profile information",
+      profileRole:          "Your role",
+      profileUser:          "User",
+      downloadClient:       "Download client",
+      profileLoginNeeded:   "Log in to open your profile"
     },
     uk: {
       navBuy:               "Завантажити",
@@ -329,7 +341,13 @@ const CONFIG = {
       profileSince:         "З нами з",
       profileVersion:       "Версія лаунчера",
       profileActive:        "Активний",
-      logoutBtn:            "Вийти"
+      logoutBtn:            "Вийти",
+      account:              "Акаунт",
+      profileInfo:          "Інформація про профіль",
+      profileRole:          "Ваша роль",
+      profileUser:          "Користувач",
+      downloadClient:       "Завантажити клієнт",
+      profileLoginNeeded:   "Увійдіть, щоб відкрити профіль"
     },
     pl: {
       navBuy:               "Pobierz",
@@ -385,7 +403,13 @@ const CONFIG = {
       profileSince:         "Z nami od",
       profileVersion:       "Wersja launchera",
       profileActive:        "Aktywny",
-      logoutBtn:            "Wyloguj"
+      logoutBtn:            "Wyloguj",
+      account:              "Konto",
+      profileInfo:          "Informacje o profilu",
+      profileRole:          "Twoja rola",
+      profileUser:          "Użytkownik",
+      downloadClient:       "Pobierz klienta",
+      profileLoginNeeded:   "Zaloguj się, aby otworzyć profil"
     },
     tr: {
       navBuy:               "İndir",
@@ -441,7 +465,13 @@ const CONFIG = {
       profileSince:         "Aramızda",
       profileVersion:       "Başlatıcı sürümü",
       profileActive:        "Aktif",
-      logoutBtn:            "Çıkış"
+      logoutBtn:            "Çıkış",
+      account:              "Hesap",
+      profileInfo:          "Profil bilgileri",
+      profileRole:          "Rolün",
+      profileUser:          "Kullanıcı",
+      downloadClient:       "İstemciyi indir",
+      profileLoginNeeded:   "Profili açmak için giriş yap"
     }
   },
 

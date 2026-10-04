@@ -273,6 +273,7 @@ const FEATURE_ICONS = [
 
 function buildFeatures() {
   const grid  = document.getElementById('featuresGrid');
+  if (!grid) return;
   const items = CONFIG.features[currentLang] ?? CONFIG.features.ru;
 
   grid.innerHTML = items.map((f, i) => `
@@ -293,6 +294,7 @@ function buildFeatures() {
 ════════════════════════════════════════ */
 function buildScreenshots() {
   const grid  = document.getElementById('screenshotsGrid');
+  if (!grid) return;
   const shots = CONFIG.screenshots;
 
   grid.innerHTML = shots.map((s, i) => `
@@ -314,6 +316,7 @@ function buildScreenshots() {
 ════════════════════════════════════════ */
 function buildPricing() {
   const grid = document.getElementById('pricingGrid');
+  if (!grid) return;
   const t    = CONFIG.i18n[currentLang];
 
   grid.innerHTML = CONFIG.pricing.plans.map((plan, i) => {
@@ -747,6 +750,7 @@ async function submitAuth() {
       setSession(nick);
       closeModal('auth');
       refreshAuthUI();
+      if (window.renderProfilePage) window.renderProfilePage();
       showToast(`${t.welcome}, ${nick}!`, 'success');
     } finally {
       if (subEl) subEl.disabled = false;
@@ -762,6 +766,7 @@ async function submitAuth() {
     setSession(entry.nick);
     closeModal('auth');
     refreshAuthUI();
+    if (window.renderProfilePage) window.renderProfilePage();
     showToast(`${t.welcome}, ${entry.nick}!`, 'success');
   } finally {
     if (subEl) subEl.disabled = false;

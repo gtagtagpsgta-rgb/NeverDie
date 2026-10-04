@@ -51,7 +51,7 @@
       <div class="lang-dropdown" id="langDropdown"></div>
     </div>
 
-    <button class="nav-buy nav-profile-hidden" id="navProfileBtn" onclick="openProfile()">Профиль</button>
+    <button class="nav-buy nav-profile-hidden" id="navProfileBtn" onclick="location.href='profile.html'">Профиль</button>
     <button class="nav-buy" id="navAuthBtn" onclick="navAuthClick()">Войти</button>
 
     <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Меню">
@@ -69,7 +69,7 @@
   <a href="#pricing"  onclick="closeMobileMenu()" data-mob-i18n="nav3">Скачать</a>
   <a href="#support"  onclick="closeMobileMenu()" data-mob-i18n="nav4">Поддержка</a>
   <a onclick="closeMobileMenu();openAuth()" id="mobAuthLink">Войти</a>
-  <a onclick="closeMobileMenu();openProfile()" id="mobProfileLink" style="display:none">Профиль</a>
+  <a onclick="location.href='profile.html'" id="mobProfileLink" style="display:none">Профиль</a>
 </div>
 
 <!-- ════════════════════════════════════════

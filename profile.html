@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Профиль — Neverdie Client</title>
+  <meta name="description" content="Neverdie Client — профиль пользователя." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="bg-base"></div>
+<div class="bg-grid"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+
+  <span class="nav-logo" onclick="location.href='index.html'">
+    <span class="logo-dot"></span>
+    Neverdie Client
+  </span>
+
+  <ul class="nav-center" id="navCenter">
+    <li><a href="index.html#hero"     data-i18n="nav0">Главная</a></li>
+    <li><a href="index.html#features" data-i18n="nav1">Функции</a></li>
+    <li><a href="index.html#video"    data-i18n="nav2">Видеообзор</a></li>
+    <li><a href="index.html#pricing"  data-i18n="nav3">Скачать</a></li>
+    <li><a href="index.html#support"  data-i18n="nav4">Поддержка</a></li>
+  </ul>
+
+  <div class="nav-right">
+
+    <div class="lang-selector" id="langSelector">
+      <button class="lang-btn" id="langBtn" onclick="toggleLangDropdown()">
+        <span id="langFlag">🇷🇺</span>
+        <span id="langLabel">RU</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="6,9 12,15 18,9"></polyline>
+        </svg>
+      </button>
+      <div class="lang-dropdown" id="langDropdown"></div>
+    </div>
+
+    <button class="nav-buy nav-profile-hidden" id="navProfileBtn" onclick="location.href='profile.html'">Профиль</button>
+    <button class="nav-buy" id="navAuthBtn" onclick="navAuthClick()">Войти</button>
+
+    <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+
+  </div>
+</nav>
+
+<!-- Мобильное меню -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#hero"     onclick="closeMobileMenu()" data-mob-i18n="nav0">Главная</a>
+  <a href="index.html#features" onclick="closeMobileMenu()" data-mob-i18n="nav1">Функции</a>
+  <a href="index.html#video"    onclick="closeMobileMenu()" data-mob-i18n="nav2">Видеообзор</a>
+  <a href="index.html#pricing"  onclick="closeMobileMenu()" data-mob-i18n="nav3">Скачать</a>
+  <a href="index.html#support"  onclick="closeMobileMenu()" data-mob-i18n="nav4">Поддержка</a>
+  <a onclick="closeMobileMenu();openAuth()" id="mobAuthLink">Войти</a>
+  <a onclick="location.href='profile.html'" id="mobProfileLink" style="display:none">Профиль</a>
+</div>
+
+<!-- ════════════════════════════════════════
+     ПРОФИЛЬ
+     ════════════════════════════════════════ -->
+<section class="profile-page">
+  <div class="container profile-layout">
+
+    <!-- Сайдбар -->
+    <aside class="profile-side">
+      <h2 data-i18n="profile">Мой профиль</h2>
+      <a class="pside active" data-i18n="account">Аккаунт</a>
+      <a class="pside" id="sideDownload" onclick="handleDownload()" data-i18n="downloadClient">Скачать клиент</a>
+    </aside>
+
+    <!-- Контент -->
+    <div class="profile-main" id="profileContent" style="display:none">
+      <div class="crumbs"><span data-i18n="nav0">Главная</span> / <span data-i18n="profile">Мой профиль</span> / <span data-i18n="account">Аккаунт</span></div>
+
+      <h1 class="pp-hello">Привет, <span id="ppNick">—</span></h1>
+
+      <h3 class="pp-subtitle" data-i18n="profileInfo">Информация о профиле</h3>
+
+      <div class="profile-rows pp-rows">
+        <div class="profile-row"><span data-i18n="profileSince">С нами с</span><b id="ppSince">—</b></div>
+        <div class="profile-row"><span>ID</span><b id="ppId">—</b></div>
+        <div class="profile-row"><span data-i18n="profileRole">Ваша роль</span><b class="pp-role"><span class="pp-role-dot"></span><span data-i18n="profileUser">Пользователь</span></b></div>
+        <div class="profile-row"><span data-i18n="profileVersion">Версия лаунчера</span><b id="ppVersion">—</b></div>
+      </div>
+
+      <div class="pp-actions">
+        <button class="btn btn-primary" onclick="handleDownload()" data-i18n="downloadClient">Скачать клиент</button>
+        <button class="btn btn-outline" onclick="ppLogout()" data-i18n="logoutBtn">Выйти</button>
+      </div>
+    </div>
+
+    <!-- Гость -->
+    <div class="profile-main" id="profileGuest" style="display:none">
+      <h1 class="pp-hello" data-i18n="profile">Мой профиль</h1>
+      <p class="pp-guest-text" data-i18n="profileLoginNeeded">Войдите, чтобы открыть профиль</p>
+      <button class="btn btn-primary" onclick="openAuth()" data-i18n="navLogin">Войти</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+
+    <div class="footer-brand">
+      <div class="footer-brand-name">
+        <span class="logo-dot"></span>
+        Neverdie Client
+      </div>
+      <p class="footer-tagline" id="footerTagline">Превосходство. Скорость. Победа.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4 data-i18n="footerNav">Навигация</h4>
+      <ul>
+        <li><a href="index.html#hero"     data-i18n="nav0">Главная</a></li>
+        <li><a href="index.html#features" data-i18n="nav1">Функции</a></li>
+        <li><a href="index.html#video"    data-i18n="nav2">Видеообзор</a></li>
+        <li><a href="index.html#pricing"  data-i18n="nav3">Скачать</a></li>
+        <li><a href="index.html#support"  data-i18n="nav4">Поддержка</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 data-i18n="footerLegal">Документы</h4>
+      <ul>
+        <li><a onclick="openModal('privacy')" data-i18n="footerPrivacy">Обработка персональных данных</a></li>
+        <li><a onclick="openModal('terms')"   data-i18n="footerTerms">Пользовательское соглашение</a></li>
+        <li><a onclick="openModal('rules')"   data-i18n="footerRules">Правила пользования</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p id="footerCopy"></p>
+    <div class="footer-socials">
+      <a href="https://t.me/neverdieCheat" id="footerTelegram" target="_blank">Telegram</a>
+    </div>
+  </div>
+</footer>
+
+<!-- LEGAL MODALS -->
+<div class="modal-overlay" id="modalPrivacy" onclick="closeModalOutside(event,'modalPrivacy')">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 data-i18n="footerPrivacy">Обработка персональных данных</h3>
+      <button class="modal-close" onclick="closeModal('privacy')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="legal-body" id="legalPrivacyBody"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalTerms" onclick="closeModalOutside(event,'modalTerms')">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 data-i18n="footerTerms">Пользовательское соглашение</h3>
+      <button class="modal-close" onclick="closeModal('terms')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="legal-body" id="legalTermsBody"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalRules" onclick="closeModalOutside(event,'modalRules')">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 data-i18n="footerRules">Правила пользования</h3>
+      <button class="modal-close" onclick="closeModal('rules')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="legal-body" id="legalRulesBody"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── АВТОРИЗАЦИЯ (как в лаунчере) ── -->
+<div class="modal-overlay" id="modalAuth" onclick="closeModalOutside(event,'modalAuth')">
+  <div class="modal auth-modal">
+    <div class="modal-header">
+      <h3 id="authTitle">Вход</h3>
+      <button class="modal-close" onclick="closeModal('auth')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="authTabLogin" onclick="switchAuthTab('login')">Вход</button>
+        <button class="auth-tab" id="authTabRegister" onclick="switchAuthTab('register')">Регистрация</button>
+      </div>
+      <div class="auth-error" id="authError"></div>
+      <input class="auth-input" id="authNick" maxlength="16" placeholder="Ник" autocomplete="username" />
+      <input class="auth-input" id="authPassword" type="password" placeholder="Пароль" autocomplete="current-password" />
+      <input class="auth-input" id="authRepeat" type="password" placeholder="Повторите пароль" autocomplete="new-password" style="display:none" />
+      <button class="btn btn-primary" id="authSubmit" style="width:100%" onclick="submitAuth()">Войти</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── TOAST ── -->
+<div class="toast" id="toast">
+  <span id="toastMsg"></span>
+</div>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
+<script>
+function renderProfilePage() {
+  const t = CONFIG.i18n[currentLang] || CONFIG.i18n.ru;
+  const session = getSession();
+  const content = document.getElementById('profileContent');
+  const guest = document.getElementById('profileGuest');
+  if (!content || !guest) return;
+  if (!session) {
+    content.style.display = 'none';
+    guest.style.display = '';
+    return;
+  }
+  guest.style.display = 'none';
+  content.style.display = '';
+  const users = loadUsers();
+  const entry = users[session.toLowerCase()] || { nick: session };
+  const nick = document.getElementById('ppNick');
+  const since = document.getElementById('ppSince');
+  const pid = document.getElementById('ppId');
+  const ver = document.getElementById('ppVersion');
+  if (nick) nick.textContent = entry.nick || session;
+  if (pid) pid.textContent = '#' + (entry.id || '—');
+  if (since) {
+    try {
+      since.textContent = entry.createdAt
+        ? new Date(entry.createdAt).toLocaleDateString(currentLang)
+        : '—';
+    } catch (e) { since.textContent = '—'; }
+  }
+  if (ver) ver.textContent = 'v' + ((CONFIG.download && CONFIG.download.version) || '?');
+}
+
+function ppLogout() {
+  setSession(null);
+  refreshAuthUI();
+  renderProfilePage();
+  showToast(CONFIG.i18n[currentLang].bye, 'success');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(renderProfilePage, 0);
+});
+</script>
+</body>
+</html>
