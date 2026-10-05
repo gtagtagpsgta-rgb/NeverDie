@@ -352,6 +352,8 @@ function deleteAccount() {
   location.href = 'index.html';
 }
 
+let ppTries = 0;
+
 function renderProfilePage() {
   const t = CONFIG.i18n[currentLang] || CONFIG.i18n.ru;
   const session = getSession();
@@ -391,6 +393,17 @@ function renderProfilePage() {
     } catch (e) { since.textContent = '—'; }
   }
   if (ver) ver.textContent = 'v' + ((CONFIG.download && CONFIG.download.version) || '?');
+
+  // Страховка от гонки инициализации: если сессия есть, а ник не встал —
+  // повторяем несколько раз с паузой.
+  const nickEl = document.getElementById('ppNick');
+  const nickTxt = nickEl ? nickEl.textContent : '';
+  if (session && (!nickTxt || nickTxt === '—') && ppTries < 8) {
+    ppTries++;
+    setTimeout(renderProfilePage, 300);
+  } else {
+    ppTries = 0;
+  }
 }
 
 function ppLogout() {

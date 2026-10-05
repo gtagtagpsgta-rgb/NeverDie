@@ -750,6 +750,9 @@ function refreshAuthUI() {
     mobProfile.style.display = session ? '' : 'none';
     mobProfile.textContent = t.profile;
   }
+  if (window.renderProfilePage) {
+    try { window.renderProfilePage(); } catch (e) {}
+  }
 }
 
 function openProfile() {
