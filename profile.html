@@ -75,7 +75,8 @@
     <!-- Сайдбар -->
     <aside class="profile-side">
       <h2 data-i18n="profile">Мой профиль</h2>
-      <a class="pside active" data-i18n="account">Аккаунт</a>
+      <a class="pside active" id="sideAccount" onclick="switchProfileTab('account')" data-i18n="account">Аккаунт</a>
+      <a class="pside" id="sideSettings" onclick="switchProfileTab('settings')" data-i18n="settings">Настройки</a>
       <a class="pside" id="sideDownload" onclick="handleDownload()" data-i18n="downloadClient">Скачать клиент</a>
       <div class="side-video">
         <video src="media/snake.mp4" autoplay muted loop playsinline disablepictureinpicture></video>
@@ -107,6 +108,28 @@
       <h1 class="pp-hello" data-i18n="profile">Мой профиль</h1>
       <p class="pp-guest-text" data-i18n="profileLoginNeeded">Войдите, чтобы открыть профиль</p>
       <button class="btn btn-primary" onclick="openAuth()" data-i18n="navLogin">Войти</button>
+    </div>
+
+    <!-- Настройки -->
+    <div class="profile-main" id="profileSettings" style="display:none">
+      <div class="crumbs"><span data-i18n="nav0">Главная</span> / <span data-i18n="profile">Мой профиль</span> / <span data-i18n="settings">Настройки</span></div>
+
+      <h1 class="pp-hello" data-i18n="settings">Настройки</h1>
+
+      <h3 class="pp-subtitle" data-i18n="changePassword">Смена пароля</h3>
+      <div class="set-pass">
+        <input class="auth-input" id="setCurrent" type="password" autocomplete="current-password" />
+        <input class="auth-input" id="setNew" type="password" autocomplete="new-password" />
+        <input class="auth-input" id="setRepeat" type="password" autocomplete="new-password" />
+        <div class="auth-error" id="setError"></div>
+        <button class="btn btn-primary" onclick="changePassword()" data-i18n="saveBtn">Сохранить</button>
+      </div>
+
+      <h3 class="pp-subtitle" data-i18n="languageTitle">Язык</h3>
+      <div class="set-lang" id="setLang"></div>
+
+      <h3 class="pp-subtitle pp-danger" data-i18n="dangerZone">Опасная зона</h3>
+      <button class="btn btn-outline btn-danger" id="deleteAccountBtn" onclick="deleteAccount()" data-i18n="deleteAccount">Удалить аккаунт</button>
     </div>
 
   </div>
@@ -236,17 +259,120 @@
 <script src="config.js"></script>
 <script src="script.js"></script>
 <script>
+let profileTab = 'account';
+
+function switchProfileTab(tab) {
+  const session = getSession();
+  if (!session) { openAuth(); return; }
+  profileTab = tab;
+  renderProfilePage();
+}
+
+function refreshSettingsTexts() {
+  const t = CONFIG.i18n[currentLang] || CONFIG.i18n.ru;
+  const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  set('sideDownload', t.downloadClient);
+  const cur = document.getElementById('setCurrent');
+  const nw = document.getElementById('setNew');
+  const rp = document.getElementById('setRepeat');
+  if (cur) cur.placeholder = t.currentPassword;
+  if (nw) nw.placeholder = t.newPassword;
+  if (rp) rp.placeholder = t.authRepeat;
+  buildSetLang();
+}
+
+function buildSetLang() {
+  const box = document.getElementById('setLang');
+  if (!box) return;
+  box.innerHTML = (CONFIG.languages || []).map(l => `
+    <button class="set-lang-btn ${l.code === currentLang ? 'active' : ''}" onclick="setLanguage('${l.code}');refreshSettingsTexts();renderProfilePage()">
+      <span>${l.flag}</span><span>${l.full}</span>
+    </button>
+  `).join('');
+}
+
+function setFail(msg) {
+  const err = document.getElementById('setError');
+  if (err) { err.textContent = msg; err.classList.add('show'); }
+}
+
+function setOk() {
+  const err = document.getElementById('setError');
+  if (err) { err.textContent = ''; err.classList.remove('show'); }
+}
+
+async function changePassword() {
+  const t = CONFIG.i18n[currentLang] || CONFIG.i18n.ru;
+  setOk();
+  const session = getSession();
+  if (!session) { openAuth(); return; }
+  const users = loadUsers();
+  const key = session.toLowerCase();
+  const entry = users[key];
+  if (!entry) return;
+  const cur = document.getElementById('setCurrent')?.value || '';
+  const nw = document.getElementById('setNew')?.value || '';
+  const rp = document.getElementById('setRepeat')?.value || '';
+  if ((await hashPassword(entry.salt, cur)) !== entry.hash) { setFail(t.errWrong); return; }
+  if (nw.length < 4) { setFail(t.errPass); return; }
+  if (nw !== rp) { setFail(t.errRepeat); return; }
+  const salt = randomSalt();
+  entry.salt = salt;
+  entry.hash = await hashPassword(salt, nw);
+  saveUsers(users);
+  document.getElementById('setCurrent').value = '';
+  document.getElementById('setNew').value = '';
+  document.getElementById('setRepeat').value = '';
+  showToast(t.passChanged, 'success');
+}
+
+let deleteArmed = false;
+function deleteAccount() {
+  const t = CONFIG.i18n[currentLang] || CONFIG.i18n.ru;
+  const btn = document.getElementById('deleteAccountBtn');
+  if (!deleteArmed) {
+    deleteArmed = true;
+    if (btn) btn.textContent = t.deleteConfirm;
+    setTimeout(() => {
+      deleteArmed = false;
+      if (btn) btn.textContent = t.deleteAccount;
+      refreshSettingsTexts();
+    }, 4000);
+    return;
+  }
+  const session = getSession();
+  if (session) {
+    const users = loadUsers();
+    delete users[session.toLowerCase()];
+    saveUsers(users);
+    setSession(null);
+  }
+  deleteArmed = false;
+  showToast(t.accountDeleted, 'success');
+  location.href = 'index.html';
+}
+
 function renderProfilePage() {
   const t = CONFIG.i18n[currentLang] || CONFIG.i18n.ru;
   const session = getSession();
   const content = document.getElementById('profileContent');
   const guest = document.getElementById('profileGuest');
+  const settings = document.getElementById('profileSettings');
   if (!content || !guest) return;
+  const sa = document.getElementById('sideAccount');
+  const ss = document.getElementById('sideSettings');
+  if (sa) sa.classList.toggle('active', profileTab === 'account');
+  if (ss) ss.classList.toggle('active', profileTab === 'settings');
   if (!session) {
     content.style.display = 'none';
+    if (settings) settings.style.display = 'none';
     guest.style.display = '';
     return;
   }
+  guest.style.display = 'none';
+  content.style.display = profileTab === 'account' ? '' : 'none';
+  if (settings) settings.style.display = profileTab === 'settings' ? '' : 'none';
+  if (profileTab !== 'settings') return;
   guest.style.display = 'none';
   content.style.display = '';
   const users = loadUsers();

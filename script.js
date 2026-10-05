@@ -222,6 +222,7 @@ function setLanguage(lang) {
   refreshAuthTexts();
   refreshAuthUI();
   refreshProfileTexts();
+  if (window.refreshSettingsTexts) window.refreshSettingsTexts();
 
   // Hero showcase badge
   const badge = document.getElementById('heroFreeBadge');

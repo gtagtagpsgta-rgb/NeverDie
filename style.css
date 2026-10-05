@@ -2062,3 +2062,59 @@ button.nav-buy {
     width: 100%;
   }
 }
+
+/* Настройки профиля */
+.set-pass {
+  max-width: 380px;
+  margin-bottom: 30px;
+}
+
+.set-pass .btn {
+  width: 100%;
+}
+
+.set-lang {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 30px;
+}
+
+.set-lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 15px;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.set-lang-btn.active {
+  border-color: #fff;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.pp-danger {
+  color: #f87171 !important;
+}
+
+.btn-danger {
+  border-color: rgba(239, 68, 68, 0.5) !important;
+  color: #f87171 !important;
+  width: auto;
+  padding-left: 28px;
+  padding-right: 28px;
+}
+
+.btn-danger:hover {
+  background: rgba(239, 68, 68, 0.12) !important;
+  border-color: rgba(239, 68, 68, 0.8) !important;
+  color: #f87171 !important;
+}
