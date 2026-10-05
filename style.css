@@ -1909,6 +1909,11 @@ button.nav-buy {
   line-height: 1.6;
 }
 
+/* Вкладки профиля — класс бьёт любые инлайн-стили */
+.tab-hidden {
+  display: none !important;
+}
+
 /* Страница профиля */
 .profile-page {
   padding: 120px 0 80px;

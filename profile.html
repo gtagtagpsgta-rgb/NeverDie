@@ -259,13 +259,25 @@
 <script src="config.js"></script>
 <script src="script.js"></script>
 <script>
-let profileTab = 'account';
+function showTab(tab) {
+  const content = document.getElementById('profileContent');
+  const settings = document.getElementById('profileSettings');
+  const guest = document.getElementById('profileGuest');
+  [content, settings, guest].forEach(el => { if (el) el.style.display = ''; });
+  if (guest) guest.classList.toggle('tab-hidden', tab !== '__guest__');
+  if (content) content.classList.toggle('tab-hidden', tab !== 'account');
+  if (settings) settings.classList.toggle('tab-hidden', tab !== 'settings');
+  const sa = document.getElementById('sideAccount');
+  const ss = document.getElementById('sideSettings');
+  if (sa) sa.classList.toggle('active', tab === 'account');
+  if (ss) ss.classList.toggle('active', tab === 'settings');
+}
 
 function switchProfileTab(tab) {
   const session = getSession();
   if (!session) { openAuth(); return; }
-  profileTab = tab;
-  renderProfilePage();
+  showTab(tab);
+  if (tab === 'account') renderProfilePage();
 }
 
 function refreshSettingsTexts() {
@@ -361,20 +373,12 @@ function renderProfilePage() {
   const guest = document.getElementById('profileGuest');
   const settings = document.getElementById('profileSettings');
   if (!content || !guest) return;
-  const sa = document.getElementById('sideAccount');
-  const ss = document.getElementById('sideSettings');
-  if (sa) sa.classList.toggle('active', profileTab === 'account');
-  if (ss) ss.classList.toggle('active', profileTab === 'settings');
   if (!session) {
-    content.style.display = 'none';
-    if (settings) settings.style.display = 'none';
-    guest.style.display = '';
+    showTab('__guest__');
+    guest.classList.remove('tab-hidden');
     return;
   }
-  guest.style.display = 'none';
-  content.style.display = profileTab === 'account' ? '' : 'none';
-  if (settings) settings.style.display = profileTab === 'settings' ? '' : 'none';
-  if (profileTab !== 'settings') return;
+  showTab('account');
   guest.style.display = 'none';
   content.style.display = '';
   const users = loadUsers();
