@@ -16,13 +16,6 @@ const CONFIG = {
     fileName: "neverdie.exe",
     version: "1.9"
   },
-
-  // ─── ОБЩИЙ БЭКЕНД (админка для всех) ─────────────────────
-  // Воркер NeverdieBot/backend.js + KV. Пока url пустой — всё локально.
-  backend: {
-    url: "",
-    key: "neverdie"
-  },
   clientTagline: {
     ru: "Превосходство. Скорость. Победа.",
     en: "Supremacy. Speed. Victory.",
@@ -287,10 +280,7 @@ const CONFIG = {
       profileRole:          "Ваша роль",
       profileUser:          "Пользователь",
       downloadClient:       "Скачать клиент",
-      profileLoginNeeded:   "Войдите, чтобы открыть профиль",
-      freezeMsg:            "Регистрация временно закрыта",
-      maintTitle:           "Технические работы",
-      maintText:            "Мы скоро вернёмся. Загляни в наш Telegram."
+      profileLoginNeeded:   "Войдите, чтобы открыть профиль"
     },
     en: {
       navBuy:               "Download",
@@ -365,10 +355,7 @@ const CONFIG = {
       profileRole:          "Your role",
       profileUser:          "User",
       downloadClient:       "Download client",
-      profileLoginNeeded:   "Log in to open your profile",
-      freezeMsg:            "Registration is temporarily closed",
-      maintTitle:           "Maintenance",
-      maintText:            "We'll be back soon. Check our Telegram."
+      profileLoginNeeded:   "Log in to open your profile"
     },
     uk: {
       navBuy:               "Завантажити",
@@ -443,10 +430,7 @@ const CONFIG = {
       profileRole:          "Ваша роль",
       profileUser:          "Користувач",
       downloadClient:       "Завантажити клієнт",
-      profileLoginNeeded:   "Увійдіть, щоб відкрити профіль",
-      freezeMsg:            "Реєстрацію тимчасово закрито",
-      maintTitle:           "Технічні роботи",
-      maintText:            "Ми скоро повернемось. Зазирни в наш Telegram."
+      profileLoginNeeded:   "Увійдіть, щоб відкрити профіль"
     },
     pl: {
       navBuy:               "Pobierz",
@@ -521,10 +505,7 @@ const CONFIG = {
       profileRole:          "Twoja rola",
       profileUser:          "Użytkownik",
       downloadClient:       "Pobierz klienta",
-      profileLoginNeeded:   "Zaloguj się, aby otworzyć profil",
-      freezeMsg:            "Rejestracja jest tymczasowo zamknięta",
-      maintTitle:           "Przerwa techniczna",
-      maintText:            "Wkrótce wracamy. Zajrzyj na nasz Telegram."
+      profileLoginNeeded:   "Zaloguj się, aby otworzyć profil"
     },
     tr: {
       navBuy:               "İndir",
@@ -599,10 +580,7 @@ const CONFIG = {
       profileRole:          "Rolün",
       profileUser:          "Kullanıcı",
       downloadClient:       "İstemciyi indir",
-      profileLoginNeeded:   "Profili açmak için giriş yap",
-      freezeMsg:            "Kayıt geçici olarak kapalı",
-      maintTitle:           "Bakım çalışması",
-      maintText:            "Yakında döneceğiz. Telegram'ımıza göz at."
+      profileLoginNeeded:   "Profili açmak için giriş yap"
     }
   },
 
