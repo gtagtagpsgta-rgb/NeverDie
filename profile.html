@@ -87,8 +87,6 @@
     <div class="profile-main" id="profileContent" style="display:none">
       <div class="crumbs"><span data-i18n="nav0">Главная</span> / <span data-i18n="profile">Мой профиль</span> / <span data-i18n="account">Аккаунт</span></div>
 
-      <h1 class="pp-hello">Привет, <span id="ppNick">—</span></h1>
-
       <h3 class="pp-subtitle" data-i18n="profileInfo">Информация о профиле</h3>
 
       <div class="profile-rows pp-rows">
@@ -378,13 +376,9 @@ function renderProfilePage() {
   guest.style.display = 'none';
   content.style.display = '';
   const users = loadUsers();
-  const entry = users[session.toLowerCase()] || { nick: session };
-  const nick = document.getElementById('ppNick');
+  const entry = users[session.toLowerCase()] || {};
   const since = document.getElementById('ppSince');
-  const pid = document.getElementById('ppId');
   const ver = document.getElementById('ppVersion');
-  if (nick) nick.textContent = entry.nick || session;
-  if (pid) pid.textContent = '#' + (entry.id || '—');
   if (since) {
     try {
       since.textContent = entry.createdAt
@@ -394,11 +388,11 @@ function renderProfilePage() {
   }
   if (ver) ver.textContent = 'v' + ((CONFIG.download && CONFIG.download.version) || '?');
 
-  // Страховка от гонки инициализации: если сессия есть, а ник не встал —
+  // Страховка от гонки инициализации: если сессия есть, а дата не встала —
   // повторяем несколько раз с паузой.
-  const nickEl = document.getElementById('ppNick');
-  const nickTxt = nickEl ? nickEl.textContent : '';
-  if (session && (!nickTxt || nickTxt === '—') && ppTries < 8) {
+  const sinceEl = document.getElementById('ppSince');
+  const sinceTxt = sinceEl ? sinceEl.textContent : '';
+  if (session && (!sinceTxt || sinceTxt === '—') && ppTries < 8) {
     ppTries++;
     setTimeout(renderProfilePage, 300);
   } else {
