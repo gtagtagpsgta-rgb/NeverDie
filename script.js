@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   buildHeroShowcase();
 
   refreshAuthUI();
+  startBackend();
 
   // Закрытие модалей по Escape
   document.addEventListener('keydown', e => {
@@ -448,8 +449,123 @@ function buildPricing() {
 }
 
 /* ════════════════════════════════════════
+   ОБЩИЙ БЭКЕНД — флаги и счётчики для всех посетителей.
+   Техработы, объявление, ссылка, акцент, заморозка регистрации.
+   ════════════════════════════════════════ */
+let backendFlags = null;
+let backendTimer = null;
+
+function backendBase() {
+  const cfg = CONFIG.backend;
+  if (!cfg || !cfg.url) return null;
+  return { base: cfg.url.replace(/\/+$/, ''), key: cfg.key || 'neverdie' };
+}
+
+async function backendGet() {
+  const b = backendBase();
+  if (!b) return null;
+  try {
+    const r = await fetch(`${b.base}/?k=${encodeURIComponent(b.key)}`, { cache: 'no-store' });
+    if (!r.ok) return null;
+    return await r.json();
+  } catch (e) { return null; }
+}
+
+function backendPost(payload) {
+  const b = backendBase();
+  if (!b) return Promise.resolve(null);
+  payload = Object.assign({ key: b.key }, payload);
+  return fetch(b.base + '/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(r => r.json()).catch(() => null);
+}
+
+function backendCount(what) {
+  const p = {};
+  p[what === 'download' ? 'download' : 'visit'] = true;
+  backendPost(p).then(f => { if (f) { backendFlags = f; applyFlags(); } });
+}
+
+function applyFlags() {
+  const f = backendFlags;
+  if (!f) return;
+
+  if (f.accent) {
+    const s = document.documentElement.style;
+    s.setProperty('--primary', f.accent);
+    s.setProperty('--primary-light', f.accent);
+  }
+
+  let banner = document.getElementById('announceBanner');
+  if (f.announcement) {
+    if (!banner) {
+      banner = document.createElement('div');
+      banner.id = 'announceBanner';
+      banner.className = 'announce-banner';
+      document.body.prepend(banner);
+    }
+    banner.textContent = f.announcement;
+    banner.style.display = '';
+  } else if (banner) {
+    banner.style.display = 'none';
+  }
+
+  if (f.maintenance) showMaintenance();
+  else hideMaintenance();
+}
+
+function showMaintenance() {
+  let ov = document.getElementById('maintOverlay');
+  if (ov) { ov.style.display = ''; return; }
+  const t = CONFIG.i18n[currentLang] || {};
+  const tg = (CONFIG.contact && (CONFIG.contact.supportBot || CONFIG.contact.telegram)) || '#';
+  ov = document.createElement('div');
+  ov.id = 'maintOverlay';
+  ov.className = 'maint-overlay';
+  ov.innerHTML =
+    '<div class="maint-card">' +
+    '<div class="maint-dot"></div>' +
+    '<h2>' + escapeHtml(t.maintTitle || 'Технические работы') + '</h2>' +
+    '<p>' + escapeHtml(t.maintText || 'Мы скоро вернёмся.') + '</p>' +
+    '<a class="btn btn-primary" href="' + tg + '" target="_blank" rel="noopener">' +
+    escapeHtml(t.supportTelegram || 'Telegram') + '</a></div>';
+  document.body.appendChild(ov);
+}
+
+function hideMaintenance() {
+  const ov = document.getElementById('maintOverlay');
+  if (ov) ov.style.display = 'none';
+}
+
+function backendDownloadUrl() {
+  if (backendFlags && backendFlags.dl) return backendFlags.dl;
+  return (CONFIG.download && CONFIG.download.url) || '';
+}
+
+function backendVersion() {
+  if (backendFlags && backendFlags.ver) return backendFlags.ver;
+  return (CONFIG.download && CONFIG.download.version) || '?';
+}
+
+function startBackend() {
+  if (!backendBase()) return;
+  backendGet().then(f => { if (f) { backendFlags = f; applyFlags(); } });
+  if (!sessionStorage.getItem('nd_visit')) {
+    sessionStorage.setItem('nd_visit', '1');
+    backendPost({ visit: true }).then(f => { if (f) { backendFlags = f; applyFlags(); } });
+  }
+  if (backendTimer) clearInterval(backendTimer);
+  backendTimer = setInterval(async () => {
+    const f = await backendGet();
+    if (f) { backendFlags = f; applyFlags(); }
+  }, 60000);
+}
+
+/* ════════════════════════════════════════
    СКАЧИВАНИЕ — только после входа.
-   Ссылка на лаунчер задаётся в config.js → download.url
+   Ссылка: бэкенд → config.js → download.url
    ════════════════════════════════════════ */
 function handleDownload() {
   const t = CONFIG.i18n[currentLang];
@@ -461,7 +577,7 @@ function handleDownload() {
     return;
   }
 
-  const url = CONFIG.download && CONFIG.download.url;
+  const url = backendDownloadUrl();
   if (!url) {
     showToast(t.noDownloadUrl, 'error');
     return;
@@ -476,6 +592,7 @@ function handleDownload() {
   a.click();
   a.remove();
   showToast(t.downloading, 'success');
+  backendCount('download');
 }
 
 /* ════════════════════════════════════════
@@ -827,6 +944,7 @@ async function submitAuth() {
   const users = loadUsers();
 
   if (authTab === 'register') {
+    if (backendFlags && backendFlags.freezeReg) { authFail(t.freezeMsg); return; }
     if (password !== (repEl?.value || '')) { authFail(t.errRepeat); return; }
     if (users[nick.toLowerCase()]) { authFail(t.errTaken); return; }
     if (subEl) subEl.disabled = true;
