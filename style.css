@@ -2123,3 +2123,79 @@ button.nav-buy {
   border-color: rgba(239, 68, 68, 0.8) !important;
   color: #f87171 !important;
 }
+
+/* ════════════════════════════════════════
+   РЕСУРС-ПАКИ (вкладка в профиле)
+   Маленькие превью, чтобы не занимали много места
+   ════════════════════════════════════════ */
+.packs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.pack-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform var(--transition), border-color var(--transition-fast), box-shadow var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+.pack-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+}
+.pack-thumb {
+  height: 110px;
+  background: #111;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.pack-thumb img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  display: block;
+}
+.pack-noimg {
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: linear-gradient(135deg, rgba(255,255,255,0.06), transparent);
+}
+.pack-body {
+  padding: 10px 11px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.pack-name {
+  font-size: 0.83rem;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pack-btn {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 0.78rem;
+}
+@media (max-width: 1024px) {
+  .packs-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 760px) {
+  .packs-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 420px) {
+  .packs-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .pack-thumb, .pack-thumb img, .pack-noimg { height: 84px; }
+}

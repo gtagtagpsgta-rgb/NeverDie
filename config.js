@@ -97,6 +97,20 @@ const CONFIG = {
     }
   ],
 
+  // ─── РЕСУРС-ПАКИ ─────────────────────────────────────────
+  // Вкладка «Ресурс-паки» в профиле. Скачивание только после входа.
+  // file — путь к zip, img — маленькое превью ("" = заглушка без фото).
+  resourcepacks: [
+    { id: "38", file: "resourcepacks/Resourcepack-38.zip", img: "resourcepacks/img/38.jpg" },
+    { id: "43", file: "resourcepacks/Resourcepack-43.zip", img: "" },
+    { id: "49", file: "resourcepacks/Resourcepack-49.zip", img: "resourcepacks/img/49.jpg" },
+    { id: "50", file: "resourcepacks/Resourcepack-50.zip", img: "resourcepacks/img/50.jpg" },
+    { id: "61", file: "resourcepacks/Resourcepack-61.zip", img: "resourcepacks/img/61.jpg" },
+    { id: "62", file: "resourcepacks/Resourcepack-62.zip", img: "resourcepacks/img/62.jpg" },
+    { id: "63", file: "resourcepacks/Resourcepack-63.zip", img: "resourcepacks/img/63.jpg" },
+    { id: "64", file: "resourcepacks/Resourcepack-64.zip", img: "resourcepacks/img/64.jpg" }
+  ],
+
   // ─── FAQ ─────────────────────────────────────────────────
   faq: {
     ru: [
@@ -280,7 +294,11 @@ const CONFIG = {
       profileRole:          "Ваша роль",
       profileUser:          "Пользователь",
       downloadClient:       "Скачать клиент",
-      profileLoginNeeded:   "Войдите, чтобы открыть профиль"
+      profileLoginNeeded:   "Войдите, чтобы открыть профиль",
+      packs:                "Ресурс-паки",
+      packsSubtitle:        "Выбери пак и нажми «Установить», чтобы скачать его.",
+      packsInstall:         "Установить",
+      packsNoPhoto:         "Нет фото"
     },
     en: {
       navBuy:               "Download",
@@ -355,7 +373,11 @@ const CONFIG = {
       profileRole:          "Your role",
       profileUser:          "User",
       downloadClient:       "Download client",
-      profileLoginNeeded:   "Log in to open your profile"
+      profileLoginNeeded:   "Log in to open your profile",
+      packs:                "Resource packs",
+      packsSubtitle:        "Pick a pack and hit Install to download it.",
+      packsInstall:         "Install",
+      packsNoPhoto:         "No photo"
     },
     uk: {
       navBuy:               "Завантажити",
@@ -430,7 +452,11 @@ const CONFIG = {
       profileRole:          "Ваша роль",
       profileUser:          "Користувач",
       downloadClient:       "Завантажити клієнт",
-      profileLoginNeeded:   "Увійдіть, щоб відкрити профіль"
+      profileLoginNeeded:   "Увійдіть, щоб відкрити профіль",
+      packs:                "Ресурс-паки",
+      packsSubtitle:        "Обери пак і натисни «Встановити», щоб завантажити.",
+      packsInstall:         "Встановити",
+      packsNoPhoto:         "Немає фото"
     },
     pl: {
       navBuy:               "Pobierz",
@@ -505,7 +531,11 @@ const CONFIG = {
       profileRole:          "Twoja rola",
       profileUser:          "Użytkownik",
       downloadClient:       "Pobierz klienta",
-      profileLoginNeeded:   "Zaloguj się, aby otworzyć profil"
+      profileLoginNeeded:   "Zaloguj się, aby otworzyć profil",
+      packs:                "Paczki zasobów",
+      packsSubtitle:        "Wybierz paczkę i kliknij Zainstaluj, aby pobrać.",
+      packsInstall:         "Zainstaluj",
+      packsNoPhoto:         "Brak zdjęcia"
     },
     tr: {
       navBuy:               "İndir",
@@ -580,7 +610,11 @@ const CONFIG = {
       profileRole:          "Rolün",
       profileUser:          "Kullanıcı",
       downloadClient:       "İstemciyi indir",
-      profileLoginNeeded:   "Profili açmak için giriş yap"
+      profileLoginNeeded:   "Profili açmak için giriş yap",
+      packs:                "Kaynak paketleri",
+      packsSubtitle:        "Bir paket seç ve indirmek için Kur'a bas.",
+      packsInstall:         "Kur",
+      packsNoPhoto:         "Fotoğraf yok"
     }
   },
 

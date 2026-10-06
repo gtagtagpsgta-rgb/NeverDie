@@ -76,6 +76,7 @@
     <aside class="profile-side">
       <h2 data-i18n="profile">Мой профиль</h2>
       <a class="pside active" id="sideAccount" onclick="switchProfileTab('account')" data-i18n="account">Аккаунт</a>
+      <a class="pside" id="sidePacks" onclick="switchProfileTab('packs')" data-i18n="packs">Ресурс-паки</a>
       <a class="pside" id="sideSettings" onclick="switchProfileTab('settings')" data-i18n="settings">Настройки</a>
       <a class="pside" id="sideDownload" onclick="handleDownload()" data-i18n="downloadClient">Скачать клиент</a>
       <div class="side-video">
@@ -108,6 +109,16 @@
       <h1 class="pp-hello" data-i18n="profile">Мой профиль</h1>
       <p class="pp-guest-text" data-i18n="profileLoginNeeded">Войдите, чтобы открыть профиль</p>
       <button class="btn btn-primary" onclick="openAuth()" data-i18n="navLogin">Войти</button>
+    </div>
+
+    <!-- Настройки -->
+    <div class="profile-main" id="profilePacks" style="display:none">
+      <div class="crumbs"><span data-i18n="nav0">Главная</span> / <span data-i18n="profile">Мой профиль</span> / <span data-i18n="packs">Ресурс-паки</span></div>
+
+      <h1 class="pp-hello" data-i18n="packs">Ресурс-паки</h1>
+      <p class="pp-guest-text" data-i18n="packsSubtitle">Выбери пак и нажми «Установить», чтобы скачать его.</p>
+
+      <div class="packs-grid" id="packsGrid"></div>
     </div>
 
     <!-- Настройки -->
@@ -262,15 +273,19 @@
 function showTab(tab) {
   const content = document.getElementById('profileContent');
   const settings = document.getElementById('profileSettings');
+  const packs = document.getElementById('profilePacks');
   const guest = document.getElementById('profileGuest');
-  [content, settings, guest].forEach(el => { if (el) el.style.display = ''; });
+  [content, settings, packs, guest].forEach(el => { if (el) el.style.display = ''; });
   if (guest) guest.classList.toggle('tab-hidden', tab !== '__guest__');
   if (content) content.classList.toggle('tab-hidden', tab !== 'account');
   if (settings) settings.classList.toggle('tab-hidden', tab !== 'settings');
+  if (packs) packs.classList.toggle('tab-hidden', tab !== 'packs');
   const sa = document.getElementById('sideAccount');
   const ss = document.getElementById('sideSettings');
+  const sp = document.getElementById('sidePacks');
   if (sa) sa.classList.toggle('active', tab === 'account');
   if (ss) ss.classList.toggle('active', tab === 'settings');
+  if (sp) sp.classList.toggle('active', tab === 'packs');
 }
 
 function switchProfileTab(tab) {
@@ -278,6 +293,46 @@ function switchProfileTab(tab) {
   if (!session) { openAuth(); return; }
   showTab(tab);
   if (tab === 'account') renderProfilePage();
+  if (tab === 'packs') buildPacks();
+}
+
+// ── РЕСУРС-ПАКИ: отрисовка карточек с маленькими превью ──
+function buildPacks() {
+  const grid = document.getElementById('packsGrid');
+  if (!grid) return;
+  const t = (CONFIG.i18n[currentLang] || CONFIG.i18n.ru);
+  const list = CONFIG.resourcepacks || [];
+  grid.innerHTML = list.map(p => {
+    const imgHtml = p.img
+      ? `<img src="${p.img}" alt="Resourcepack ${p.id}" loading="lazy" />`
+      : `<div class="pack-noimg">${t.packsNoPhoto || 'Нет фото'} · ${p.id}</div>`;
+    return `
+    <div class="pack-card">
+      <div class="pack-thumb">${imgHtml}</div>
+      <div class="pack-body">
+        <div class="pack-name">Resourcepack ${p.id}</div>
+        <button class="btn btn-primary btn-sm pack-btn" onclick="downloadPack('${p.id}')">↓ ${t.packsInstall || 'Установить'}</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── Скачивание пака — только после входа ──
+function downloadPack(id) {
+  const t = CONFIG.i18n[currentLang] || CONFIG.i18n.ru;
+  const session = getSession();
+  if (!session) { showToast(t.needLogin, 'error'); openAuth(); return; }
+  const pack = (CONFIG.resourcepacks || []).find(p => p.id === String(id));
+  if (!pack) return;
+  const a = document.createElement('a');
+  a.href = pack.file;
+  a.download = `Resourcepack-${pack.id}.zip`;
+  a.target = '_blank';
+  a.rel = 'noopener';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  showToast(`${t.downloading}: Resourcepack ${pack.id}`, 'success');
 }
 
 function refreshSettingsTexts() {
@@ -291,13 +346,14 @@ function refreshSettingsTexts() {
   if (nw) nw.placeholder = t.newPassword;
   if (rp) rp.placeholder = t.authRepeat;
   buildSetLang();
+  buildPacks();
 }
 
 function buildSetLang() {
   const box = document.getElementById('setLang');
   if (!box) return;
   box.innerHTML = (CONFIG.languages || []).map(l => `
-    <button class="set-lang-btn ${l.code === currentLang ? 'active' : ''}" onclick="setLanguage('${l.code}');refreshSettingsTexts();renderProfilePage()">
+    <button class="set-lang-btn ${l.code === currentLang ? 'active' : ''}" onclick="setLanguage('${l.code}');refreshSettingsTexts();renderProfilePage();buildPacks()">
       <span>${l.flag}</span><span>${l.full}</span>
     </button>
   `).join('');
@@ -378,7 +434,14 @@ function renderProfilePage() {
     guest.classList.remove('tab-hidden');
     return;
   }
-  showTab('account');
+  // Если уже открыты паки или настройки — не выкидывать на аккаунт (напр. при смене языка)
+  const packsEl = document.getElementById('profilePacks');
+  const setEl = document.getElementById('profileSettings');
+  const packsActive = packsEl && !packsEl.classList.contains('tab-hidden');
+  const setActive = setEl && !setEl.classList.contains('tab-hidden');
+  if (packsActive) { showTab('packs'); buildPacks(); }
+  else if (setActive) { showTab('settings'); }
+  else { showTab('account'); }
   guest.style.display = 'none';
   content.style.display = '';
   const users = loadUsers();
@@ -418,7 +481,12 @@ function ppLogout() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(renderProfilePage, 0);
+  setTimeout(() => {
+    renderProfilePage();
+    buildPacks();
+    // Поддержка прямой ссылки profile.html#packs
+    if (location.hash === '#packs' && getSession()) showTab('packs');
+  }, 0);
 });
 </script>
 </body>
