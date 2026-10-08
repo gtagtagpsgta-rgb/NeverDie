@@ -84,15 +84,15 @@ const CONFIG = {
   // [0] — широкий главный скриншот, [1][2] — два поменьше рядом
   screenshots: [
     {
-      url: "screenshots/shot1.png",
+      url: "screenshots/shot1.jpg",
       alt: "Neverdie Client — главный скриншот"
     },
     {
-      url: "screenshots/shot2.png",
+      url: "screenshots/shot2.jpg",
       alt: "Neverdie Client — скриншот 2"
     },
     {
-      url: "screenshots/shot3.png",
+      url: "screenshots/shot3.jpg",
       alt: "Neverdie Client — скриншот 3"
     }
   ],
