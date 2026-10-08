@@ -9,11 +9,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="preload" as="image" href="assets/bg-world.jpg" />
 </head>
 <body>
 
-<div class="bg-base"></div>
-<div class="bg-grid"></div>
+ <!-- Прелоадер: держит вуаль, пока грузится фон, чтобы страница не «дёргалась» -->
+ <div class="preloader" id="preloader" aria-hidden="true">
+   <div class="preloader-mark">
+     <div class="preloader-logo"></div>
+     <div class="preloader-name">NEVERDIE</div>
+   </div>
+   <div class="preloader-bar"><span id="preloaderFill"></span></div>
+ </div>
+
+ <div class="bg-scene"></div>
+ <div class="bg-base"></div>
+ <div class="bg-grid"></div>
 <div class="cursor-glow" id="cursorGlow"></div>
 
 <!-- ════════════════════════════════════════
@@ -441,7 +452,8 @@
   <span id="toastMsg"></span>
 </div>
 
-<script src="config.js"></script>
-<script src="script.js"></script>
+ <script src="preloader.js"></script>
+ <script src="config.js"></script>
+ <script src="script.js"></script>
 </body>
 </html>
