@@ -12,7 +12,7 @@
   --primary-light:   #FFFFFF;
   --primary-dark:    #CFCFCF;
   --secondary:       #A3A3A3;
-  --bg:              #08090D;
+  --bg:              #03050A;
   --bg-card:         #0D1017;
   --bg-card-hover:   #111827;
   --text:            #E8EAED;
@@ -33,10 +33,10 @@ html { scroll-behavior: smooth; font-size: 16px; }
 
 body {
   background:
-    radial-gradient(ellipse 70% 55% at 12% -8%, rgba(45, 70, 132, 0.15) 0%, transparent 62%),
-    radial-gradient(ellipse 55% 45% at 92% 8%, rgba(74, 134, 214, 0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 80% 60% at 50% 108%, rgba(15, 22, 36, 0.88) 0%, transparent 70%),
-    linear-gradient(180deg, #090d17 0%, #070910 55%, #05070c 100%);
+    radial-gradient(ellipse 70% 55% at 12% -8%, rgba(38, 58, 110, 0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 45% at 92% 8%, rgba(60, 108, 180, 0.05) 0%, transparent 58%),
+    radial-gradient(ellipse 80% 60% at 50% 108%, rgba(11, 16, 26, 0.92) 0%, transparent 68%),
+    linear-gradient(180deg, #05070d 0%, #04060b 55%, #03050a 100%);
   color: var(--text);
   font-family: var(--font);
   line-height: 1.65;
@@ -140,9 +140,9 @@ body.is-loading > *:not(.preloader):not(.bg-base):not(.bg-particles) {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 45% 35% at 78% 68%, rgba(72, 128, 200, 0.06) 0%, transparent 70%),
-    radial-gradient(ellipse 38% 30% at 20% 78%, rgba(112, 74, 200, 0.045) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 45% at 50% 0%, rgba(255, 255, 255, 0.028) 0%, transparent 65%);
+    radial-gradient(ellipse 45% 35% at 78% 68%, rgba(56, 100, 160, 0.038) 0%, transparent 68%),
+    radial-gradient(ellipse 38% 30% at 20% 78%, rgba(88, 58, 160, 0.028) 0%, transparent 68%),
+    radial-gradient(ellipse 60% 45% at 50% 0%, rgba(255, 255, 255, 0.016) 0%, transparent 62%);
 }
 
 .bg-particles {
