@@ -127,8 +127,7 @@ body {
 /* Пока прелоадер жив — сцену не показываем */
 body.is-loading .bg-scene,
 body.is-loading .bg-base,
-body.is-loading .bg-grid,
-body.is-loading > *:not(.preloader):not(.bg-scene):not(.bg-base):not(.bg-grid) {
+body.is-loading > *:not(.preloader):not(.bg-scene):not(.bg-base) {
   opacity: 0;
 }
 
@@ -172,18 +171,6 @@ body.is-loading > *:not(.preloader):not(.bg-scene):not(.bg-base):not(.bg-grid) {
     radial-gradient(ellipse 90% 60% at 5%  -10%, rgba(255,255,255,0.13) 0%, transparent 55%),
     radial-gradient(ellipse 60% 50% at 95% 105%, rgba(255,255,255,0.08) 0%, transparent 55%),
     radial-gradient(ellipse 50% 40% at 50%  50%, rgba(255,255,255,0.03) 0%, transparent 70%);
-}
-
-.bg-grid {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: radial-gradient(ellipse 85% 75% at 50% 40%, black 0%, transparent 100%);
 }
 
 /* ── LAYOUT ── */
