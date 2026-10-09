@@ -32,7 +32,11 @@
 html { scroll-behavior: smooth; font-size: 16px; }
 
 body {
-  background: var(--bg);
+  background:
+    radial-gradient(ellipse 70% 55% at 12% -8%, rgba(59, 91, 168, 0.22) 0%, transparent 62%),
+    radial-gradient(ellipse 55% 45% at 92% 8%, rgba(96, 165, 250, 0.13) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 60% at 50% 108%, rgba(22, 32, 52, 0.85) 0%, transparent 70%),
+    linear-gradient(180deg, #0e1322 0%, #0b0f1a 55%, #080b13 100%);
   color: var(--text);
   font-family: var(--font);
   line-height: 1.65;
@@ -87,10 +91,10 @@ body {
   width: 58px;
   height: 58px;
   border-radius: 16px;
-  background-image: url('assets/bg-world.jpg');
-  background-size: 140%;
-  background-position: 78% 14%;
-  box-shadow: 0 10px 40px rgba(59, 130, 246, 0.35);
+  background:
+    radial-gradient(ellipse at 30% 25%, rgba(191, 219, 254, 0.85) 0%, transparent 55%),
+    linear-gradient(140deg, #3b82f6 0%, #2563eb 45%, #1e3a8a 100%);
+  box-shadow: 0 10px 40px rgba(59, 130, 246, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.22);
   animation: plPulse 1.7s ease-in-out infinite;
 }
 
@@ -125,41 +129,9 @@ body {
 }
 
 /* Пока прелоадер жив — сцену не показываем */
-body.is-loading .bg-scene,
 body.is-loading .bg-base,
-body.is-loading > *:not(.preloader):not(.bg-scene):not(.bg-base) {
+body.is-loading > *:not(.preloader):not(.bg-base) {
   opacity: 0;
-}
-
-.bg-scene {
-  transition: opacity 0.7s ease 0.05s;
-}
-
-/* ── SCENERY ──
-   Ночная сцена: луна, снежные хребты, туман и вода.
-   Картинка лежит под градиентами, поэтому текст поверх остаётся читаемым. */
-.bg-scene {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image: url('assets/bg-world.jpg');
-  background-size: cover;
-  background-position: 50% 62%;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  opacity: 0.62;
-  filter: saturate(1.08) contrast(1.02);
-}
-
-/* Затемняющая вуаль поверх сцены, чтобы карточки и текст не тонули в картинке */
-.bg-scene::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 42%, rgba(8, 10, 20, 0.30) 0%, rgba(6, 8, 16, 0.72) 78%),
-    linear-gradient(180deg, rgba(6, 8, 16, 0.58) 0%, rgba(6, 8, 16, 0.18) 32%, rgba(6, 8, 16, 0.74) 100%);
 }
 
 .bg-base {
@@ -168,9 +140,9 @@ body.is-loading > *:not(.preloader):not(.bg-scene):not(.bg-base) {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 90% 60% at 5%  -10%, rgba(255,255,255,0.13) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 50% at 95% 105%, rgba(255,255,255,0.08) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 40% at 50%  50%, rgba(255,255,255,0.03) 0%, transparent 70%);
+    radial-gradient(ellipse 45% 35% at 78% 68%, rgba(96, 165, 250, 0.09) 0%, transparent 70%),
+    radial-gradient(ellipse 38% 30% at 20% 78%, rgba(139, 92, 246, 0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 45% at 50% 0%, rgba(255, 255, 255, 0.045) 0%, transparent 65%);
 }
 
 /* ── LAYOUT ── */

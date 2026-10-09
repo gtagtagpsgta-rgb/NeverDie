@@ -13,23 +13,7 @@
     if (fill) fill.style.width = pct.toFixed(0) + '%';
   }, 90);
 
-  var scene = null;
-  try {
-    scene = Array.prototype.slice
-      .call(document.getElementsByClassName('bg-scene'))
-      .map(function (el) {
-        return window.getComputedStyle(el).backgroundImage.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
-      })
-      .filter(Boolean);
-  } catch (e) { /* ignore */ }
-
   var probes = [];
-  scene.forEach(function (url) {
-    if (!url || url === 'none') return;
-    var img = new Image();
-    img.src = url;
-    probes.push(img);
-  });
 
   var fontsReady = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
 
